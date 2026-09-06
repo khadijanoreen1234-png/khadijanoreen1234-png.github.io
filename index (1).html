@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khadija Abdul Hayee — Computer Science Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #0D1117;
+    --panel: #141A22;
+    --line: #232B36;
+    --ink: #E6EDF3;
+    --muted: #8B949E;
+    --gold: #E3B341;
+    --blue: #6CA9E8;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+
+  h1,h2,h3{
+    font-family: 'Newsreader', serif;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  a{ color: var(--gold); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+
+  .layout{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---- sidebar rail: sequence of sections, so numbering is justified ---- */
+  nav.rail{
+    position: sticky;
+    top: 0;
+    align-self: start;
+    padding-top: 80px;
+    height: 100vh;
+  }
+  nav.rail ol{
+    list-style: none;
+    margin: 0; padding: 0;
+    border-left: 1px solid var(--line);
+  }
+  nav.rail li{ position: relative; margin-bottom: 28px; padding-left: 22px; }
+  nav.rail li::before{
+    content: attr(data-n);
+    position: absolute; left: -13px; top: -2px;
+    width: 24px; height: 24px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+  }
+  nav.rail a{
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+  nav.rail a:hover{ color: var(--ink); text-decoration: none; }
+
+  main{ padding-bottom: 120px; }
+
+  section{ padding: 90px 0 0 0; border-bottom: 1px solid transparent; }
+  section:first-of-type{ padding-top: 140px; }
+
+  /* ---- hero ---- */
+  .hero .kicker{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    font-size: 56px;
+    line-height: 1.1;
+    max-width: 11ch;
+  }
+  .hero .role{
+    font-size: 20px;
+    color: var(--muted);
+    margin-top: 18px;
+    max-width: 46ch;
+  }
+  .hero .links{ margin-top: 32px; display:flex; gap: 24px; font-family:'IBM Plex Mono', monospace; font-size: 13px;}
+
+  h2.section-title{
+    font-size: 28px;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+
+  .about p{ max-width: 62ch; color: var(--ink); font-size: 16.5px; }
+  .about p + p{ margin-top: 16px; }
+
+  /* ---- skills as inline chips, monospace = "this is code-adjacent" ---- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    max-width: 720px;
+  }
+  .skill{
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .skill .lvl{ display:block; margin-top:6px; color: var(--muted); font-size: 11px; }
+
+  /* ---- projects ---- */
+  .project{
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+  }
+  .project:last-child{ border-bottom: 1px solid var(--line); }
+  .project .meta{ font-family:'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); }
+  .project h3{ font-size: 22px; margin-bottom: 10px; color: var(--ink); }
+  .project p{ color: var(--muted); max-width: 56ch; margin: 0 0 14px 0; }
+  .project .stack span{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    margin-right: 14px;
+  }
+
+  /* ---- contact ---- */
+  .contact p{ color: var(--muted); max-width: 50ch; }
+  .contact .email{
+    display:inline-block;
+    margin-top: 20px;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--gold);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 4px;
+  }
+  footer{
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding-top: 60px;
+  }
+
+  @media (max-width: 760px){
+    .layout{ grid-template-columns: 1fr; padding: 0 20px; }
+    nav.rail{ display:none; }
+    .hero h1{ font-size: 40px; }
+    .project{ grid-template-columns: 1fr; }
+    section:first-of-type{ padding-top: 90px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <nav class="rail" aria-label="Section navigation">
+    <ol>
+      <li data-n="1"><a href="#about">About</a></li>
+      <li data-n="2"><a href="#skills">Skills</a></li>
+      <li data-n="3"><a href="#projects">Projects</a></li>
+      <li data-n="4"><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="kicker">Computer Science Student</div>
+      <h1>Khadija Abdul Hayee</h1>
+      <p class="role">I build small, well-structured programs and I'm currently deepening my grasp of data structures, algorithms, and web fundamentals.</p>
+      <div class="links">
+        <a href="#projects">View projects ↓</a>
+        <a href="https://github.com/khadijanoreen1234-png" target="_blank">GitHub</a>
+        <a href="mailto:khadijanoreen1234@gmail.com">Email</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div class="about">
+        <p>I'm a Computer Science student studying algorithms, systems, and software design. I like problems that reward clear thinking more than clever tricks — breaking something complicated into pieces that actually make sense.</p>
+        <p>Outside coursework, I practice by building small tools and rebuilding concepts from scratch to understand them properly, rather than just using a library.</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill">Python<span class="lvl">Comfortable</span></div>
+        <div class="skill">Java<span class="lvl">Comfortable</span></div>
+        <div class="skill">C / C++<span class="lvl">Learning</span></div>
+        <div class="skill">HTML / CSS<span class="lvl">Comfortable</span></div>
+        <div class="skill">SQL<span class="lvl">Familiar</span></div>
+        <div class="skill">Data Structures<span class="lvl">Coursework</span></div>
+        <div class="skill">Git / GitHub<span class="lvl">Comfortable</span></div>
+        <div class="skill">Linux basics<span class="lvl">Familiar</span></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="project">
+        <div class="meta">01 / Coursework</div>
+        <div>
+          <h3>Library Management System</h3>
+          <p>A console-based system to track book inventory, issue/return records, and overdue fines, built to practice OOP design and file-based data persistence.</p>
+          <div class="stack"><span>Java</span><span>File I/O</span><span>OOP</span></div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="meta">02 / Personal</div>
+        <div>
+          <h3>Expense Tracker</h3>
+          <p>A small script that logs daily spending to a CSV file and prints a monthly summary by category — my first real end-to-end tool, built to get comfortable with file handling.</p>
+          <div class="stack"><span>Python</span><span>CSV</span><span>CLI</span></div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="meta">03 / This site</div>
+        <div>
+          <h3>Portfolio Website</h3>
+          <p>This page — hand-built with HTML and CSS, deployed on GitHub Pages, made for a Web Technologies assignment.</p>
+          <div class="stack"><span>HTML</span><span>CSS</span><span>GitHub Pages</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p>I'm open to internships, small collaborative projects, and any chance to learn from people further along than me.</p>
+      <a class="email" href="mailto:khadijanoreen1234@gmail.com">khadijanoreen1234@gmail.com</a>
+    </section>
+
+    <footer>Built by Khadija Abdul Hayee · 2026</footer>
+  </main>
+</div>
+
+</body>
+</html>
